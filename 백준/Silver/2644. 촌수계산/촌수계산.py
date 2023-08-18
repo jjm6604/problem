@@ -1,36 +1,26 @@
-def bfs(s, e):
-    q = [s]
-    visited[s][0] = True
-    flag = False
-    while q:
-        v = q.pop(0)
-        for i in graph[v]:
-            temp = visited[v][1]
-            if not visited[i][0] and visited[i][1] != e:
-                visited[i][1] = visited[v][1] + 1
-                q.append(i)
-                visited[i][0] = True
-            if i == e:
-                flag = True
-                visited[i][1] = visited[v][1] + 1
-                return (flag,visited[i][1])
-    return (flag, visited[e][1])
-
 n = int(input())
-a, b = map(int, input().split())
-graph = [[] for _ in range(n+1)]
-for _ in range(int(input())):
-    c, d = map(int, input().split())
-    graph[c].append(d)
-    graph[d].append(c)
+s, e = map(int, input().split())
+m = int(input())
+lst = [[0] * (n+1) for _ in range(n+1)]
 
-# print(graph)
-visited = [[False, 0] for _ in range(n+1)]
+for _ in range(m):
+    a, b = map(int, input().split())
+    lst[a][b] = 1
+    lst[b][a] = 1
 
-flag, ans = bfs(a, b)
-# print(visited)
+result = -1
+q = []
+q.append(s)
+v = [0] * (n+1)
+v[s] = 1
 
-if flag:
-    print(ans)
-else:
-    print(-1)
+while q and result == -1:
+    x = q.pop(0)
+    for i in range(n+1):
+        if lst[x][i] == 1 and v[i] == 0:
+            q.append(i)
+            v[i] = v[x] + 1
+            if i == e:
+                result = v[i] - 1
+                break
+print(result)
