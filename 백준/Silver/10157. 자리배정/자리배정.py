@@ -1,25 +1,25 @@
-C, R = map(int, input().split())
-# 가로 C 세로 R
-K = int(input())
-lst = [[0] * C for _ in range(R)]
-value = 1
-di = [1, 0, -1, 0]
-dj = [0, 1, 0, -1]
-direct = 0
-i, j = 0, 0
-lst[i][j] = value
+import sys
+
+C, R = map(int, sys.stdin.readline().split())
+K = int(sys.stdin.readline().strip())
+lst = [[0] * R for _ in range(C)]
+d = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+i = 0
+n = 1
+x, y = 0, 0
+lst[0][0] = n
+result = 0
 if K > C * R:
     print(0)
-    exit()
-while value != K:
-    ni = i + di[direct]
-    nj = j + dj[direct]
-    if 0 <= ni < R and 0 <= nj < C and lst[ni][nj] == 0:
-        i = ni
-        j = nj
-        value += 1
-        lst[i][j] = value
+    exit(0)
+while n < K:
+    nx = x + d[i][0]
+    ny = y + d[i][1]
+    if 0 <= nx < C and 0 <= ny < R and lst[nx][ny] == 0:
+        n += 1
+        lst[nx][ny] = n
+        x, y = nx, ny
     else:
-        direct = (direct + 1) % 4
+        i = (i+1) % 4
 
-print(j+1, i+1)
+print(x+1, y+1)
