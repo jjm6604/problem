@@ -14,11 +14,12 @@ def backtrack(x, y, cnt):
             char.add(MAP[dx][dy])
             backtrack(dx, dy, cnt+1)
             char.remove(MAP[dx][dy])
+    
 R, C = map(int, sys.stdin.readline().strip().split())
 MAP = []
 for _ in range(R):
     word = sys.stdin.readline().strip()
-    num = [ord(w) for w in word]
+    num = [ord(w)-65 for w in word]
     MAP.append(num)
 char = set()
 char.add(MAP[0][0])
