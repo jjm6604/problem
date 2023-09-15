@@ -7,7 +7,6 @@ N, M = map(int, input().split())
 K = int(input())
 coord = [list(map(int, input().split())) for _ in range(K)]
 v = [[0] * M for _ in range(N)]
-# result = 0
 for c in coord:
     di, dj = c
     v[di-1][dj-1] = -1
@@ -25,7 +24,7 @@ for j in range(M):
             di = i + direct[k][0]
             dj = j + direct[k][1]
             if 0 <= di < N and 0 <= dj < M and v[di][dj] >= 0:
-                v[di][dj] += v[i][j]
+                v[di][dj] = (v[di][dj] + v[i][j]) % (10**9 + 7)
 
-result = v[N-1][M-1] % (10**9 + 7)
+result = v[N-1][M-1]
 print(result)
