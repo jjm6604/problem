@@ -1,32 +1,31 @@
-direct = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+from collections import deque
+
 N = int(input())
-lst = [list(map(int, input())) for _ in range(N)]
-result = []
-# N * N
+MAP = [list(map(int, input())) for _ in range(N)]
+
 v = [[0] * N for _ in range(N)]
-s = []
+d = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+result = []
 for i in range(N):
     for j in range(N):
-        if lst[i][j] == 1 and v[i][j] == 0:
+        if MAP[i][j] == 1 and v[i][j] == 0:
             cnt = 1
             v[i][j] = 1
-            x = i
-            y = j
-            while True:
+            q = deque()
+            q.append((i, j))
+            while q:
+                x, y = q.popleft()
                 for k in range(4):
-                    dx = x + direct[k][0]
-                    dy = y + direct[k][1]
-                    if 0 <= dx < N and 0 <= dy < N and lst[dx][dy] == 1 and v[dx][dy] == 0:
-                        s.append([dx, dy])
-                        v[dx][dy] = 1
+                    di = x + d[k][0]
+                    dj = y + d[k][1]
+                    if 0 <= di < N and 0 <= dj < N and MAP[di][dj] == 1 and v[di][dj] == 0:
+                        q.append((di, dj))
+                        v[di][dj] = 1
                         cnt += 1
-                else:
-                    if s:
-                        x, y = s.pop()
-                    else:
-                        result.append(cnt)
-                        break
-result.sort()
+            result.append(cnt)
+
 print(len(result))
+result.sort()
 for r in result:
     print(r)
