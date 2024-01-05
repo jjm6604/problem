@@ -1,25 +1,22 @@
-N = int(input())
-M = int(input())
-lst = [[0] * (N+1) for _ in range(N+1)]
-for m in range(M):
-    a, b = map(int, input().split())
-    lst[a][b] = 1
-    lst[b][a] = 1
+m = int(input())
+n = int(input())
 
-n = 1
-s = []
-v = [0] * (N+1)
-v[n] = 1
-while True:
-    for i in range(N+1):
-        if lst[n][i] == 1 and v[i] == 0:
-            s.append(n)
-            n = i
-            v[n] = 1
-            break
-    else:
-        if s:
-            n = s.pop()
-        else:
-            break
-print(v[2:].count(1))
+lst = [[] for _ in range(m)]
+
+for _ in range(n):
+    a, b = map(int, input().split())
+    lst[a-1].append(b-1)
+    lst[b-1].append(a-1)
+
+v = [0] * m
+q = [0]
+v[0] = 1
+while q:
+    x = q.pop(0)
+    for a in lst[x]:
+        if v[a] == 0:
+            q.append(a)
+            v[a] = 1
+result = v[1:].count(1)
+
+print(result)
