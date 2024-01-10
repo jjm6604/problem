@@ -15,17 +15,21 @@ for i in range(N):
         if MAP[i][j] == 0 and v[i][j] == 0:
             cnt = 1
             res += 1
-            q = [(i, j)]
+            x, y = i, j
+            s = []
             v[i][j] = 1
-            while q:
-                x, y = q.pop(0)
+            while True:
                 for k in range(4):
                     dx = x + direct[k][0]
                     dy = y + direct[k][1]
                     if 0 <= dx < N and 0 <= dy < M and v[dx][dy] == 0 and MAP[dx][dy] == 0:
                         v[dx][dy] = 1
-                        q.append((dx, dy))
+                        s.append((dx, dy))
                         cnt += 1
+                if s:
+                    x, y = s.pop()
+                else:
+                    break
             lst.append(cnt)
 lst.sort()
 print(res)
