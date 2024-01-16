@@ -16,5 +16,4 @@ def backtrack(n, m, password):
 L, C = map(int, input().split())
 lst = list(input().split())
 lst.sort()
-checked = [0] * C
 backtrack(0, 0, '')
