@@ -23,12 +23,11 @@ def solution(diffs, times, limit):
         mid = (start + end) // 2
         
         if puzzle(mid, limit):
+            answer = mid
             end = mid - 1
         else:
             start = mid + 1
     
-    
-    answer = max(start, end)
         
     return answer
 
